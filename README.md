@@ -1,22 +1,19 @@
 # Jenkins Docker-in-Docker Agent
-[![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins-dind.svg)][docker-hub]
-[![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins-dind.svg)][docker-hub]
-[![](https://images.microbadger.com/badges/image/mesosphere/jenkins-dind.svg)](http://microbadger.com/images/mesosphere/jenkins-dind "Get your own image badge on microbadger.com")
+[![Docker Stars](https://img.shields.io/docker/stars/beedemo/jenkins-dind-agent.svg)][docker-hub]
+[![Docker Pulls](https://img.shields.io/docker/pulls/beedemo/jenkins-dind-agent.svg)][docker-hub]
+[![](https://images.microbadger.com/badges/image/mesosphere/jenkins-dind.svg)](http://microbadger.com/images/beedemo/jenkins-dind-agent "Get your own image badge on microbadger.com")
 
-A simple Docker image for running a Jenkins agent alongside its very
-own Docker daemon. This is useful if you're trying to run Jenkins agents on a
-Mesos cluster, and you also want to build and push Docker images using your
-CI system.
+A simple Docker image for running a Jenkins agent with its very
+own contained Docker daemon. This is useful if you're trying to run Jenkins agents on a
+Mesos cluster, and you also want to build and push Docker images with Jenkins agents.
 
-For full documentation on how to use this Docker image, please refer to
-<https://docs.mesosphere.com/latest/usage/service-guides/jenkins/>.
 
 ## Usage
 ### Command line
 Try it out locally by running the following command:
 
 ```bash
-docker run --privileged mesosphere/jenkins-dind:0.5.0-alpine \
+docker run --privileged beedemo/jenkins-dind-agent \
   wrapper.sh "java -version && docker run hello-world"
 ```
 
@@ -28,7 +25,7 @@ Mesos plugin within the Jenkins master's `config.xml` follows:
 
 ```xml
 <org.jenkinsci.plugins.mesos.MesosSlaveInfo>
-  <slaveCpus>0.1</slaveCpus>
+  <slaveCpus>0.2</slaveCpus>
   <slaveMem>512</slaveMem>
   <executorCpus>0.1</executorCpus>
   <maxExecutors>2</maxExecutors>
@@ -41,7 +38,7 @@ Mesos plugin within the Jenkins master's `config.xml` follows:
   <jnlpArgs/>
   <containerInfo>
     <type>DOCKER</type>
-    <dockerImage>mesosphere/jenkins-dind:0.5.0-alpine</dockerImage>
+    <dockerImage>beedemo/jenkins-dind-agent:1.13.1-alpine</dockerImage>
     <networking>BRIDGE</networking>
     <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
     <customDockerCommandShell>wrapper.sh</customDockerCommandShell>
@@ -53,4 +50,4 @@ Mesos plugin within the Jenkins master's `config.xml` follows:
 </org.jenkinsci.plugins.mesos.MesosSlaveInfo>
 ```
 
-[docker-hub]: https://hub.docker.com/r/mesosphere/jenkins-dind
+[docker-hub]: https://hub.docker.com/r/beedemo/jenkins-dind-agent
