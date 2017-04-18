@@ -1,6 +1,6 @@
 FROM docker:1.13.1-dind
 
-MAINTAINER Mesosphere Support <support+jenkins-dind@mesosphere.com>
+MAINTAINER Kurt Madel <kmadel@cloudbees.com>
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
