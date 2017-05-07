@@ -17,6 +17,7 @@ pipeline {
       steps {
         //pull and save images to include in dind agent
         sh "docker pull ${DOCKER_HUB_USER}/go-demo:unit-cache && docker save -o go-demo-unit-cache.tar ${DOCKER_HUB_USER}/go-demo:unit-cache"
+        sh "docker pull mongo:3.2.10 && docker save -o mongo.tar mongo:3.2.10"
         //build image
         sh "docker build -t ${DOCKER_REGISTRY}/${DOCKER_HUB_USER}/dind-compose-agent:go-demo ."
         //push to registry
