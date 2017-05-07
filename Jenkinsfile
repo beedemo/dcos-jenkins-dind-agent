@@ -23,4 +23,5 @@ pipeline {
         sh "docker push ${DOCKER_REGISTRY}/${DOCKER_HUB_USER}/dind-compose-agent:go-demo"
       }
     }
+  }
 }
