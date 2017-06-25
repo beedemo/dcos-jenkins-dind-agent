@@ -1,6 +1,6 @@
 FROM docker:1.13.1-dind
 
-MAINTAINER Kurt Madel <kmadel@cloudbees.com>
+LABEL maintainer "Kurt Madel <kmadel@cloudbees.com>"
 
 ENTRYPOINT []
 CMD []
