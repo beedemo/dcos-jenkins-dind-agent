@@ -26,8 +26,9 @@ pipeline {
         //push to registry
         sh "docker push ${DOCKER_LOCAL_REGISTRY}/${DOCKER_HUB_USER}/dind-compose-agent:go-demo"
         //also push to public registy - Docker Hub
-        //dockerBuildPush params: org, name, tag, dir, pushCredId
-        dockerBuildPush("${DOCKER_HUB_USER}", "dind-compose-agent", "go-demo", ".", "${DOCKER_CREDENTIAL_ID}")
+        withDockerRegistry(registry: [credentialsId: "${DOCKER_CREDENTIAL_ID}"]) {
+          sh "docker push ${DOCKER_HUB_USER}/dind-compose-agent:go-demo"
+        }
       }
     }
   }
