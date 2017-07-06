@@ -1,4 +1,4 @@
-FROM docker:1.13.1-dind
+FROM docker:17.06.0-ce-dind
 
 LABEL maintainer "Kurt Madel <kmadel@cloudbees.com>"
 
