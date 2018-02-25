@@ -55,6 +55,6 @@ VOLUME /home/jenkins/.jenkins
 VOLUME ${AGENT_WORKDIR}
 WORKDIR /home/jenkins
 
-COPY jenkins-slave /usr/local/bin/jenkins-slave
+COPY jenkins-slave /usr/local/bin/
 
 ENTRYPOINT ["jenkins-slave"]
