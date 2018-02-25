@@ -35,7 +35,7 @@ RUN set -x \
 
 ENV HOME /home/jenkins
 RUN addgroup -S -g 1001 docker
-RUN adduser -S -u 1001 $HOME -G docker docker
+RUN adduser -S -u 1001 -h $HOME -G docker docker
 LABEL Description="This is a base image, which provides the Jenkins agent executable (slave.jar)" Vendor="Jenkins project" Version="3.16"
 
 ARG VERSION=3.16
