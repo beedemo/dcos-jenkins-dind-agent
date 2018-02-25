@@ -1,8 +1,7 @@
-FROM docker:17.06.0-ce-dind
+FROM docker:docker:17.06.0-ce-dind
 
 LABEL maintainer "Kurt Madel <kmadel@cloudbees.com>"
 
-ENTRYPOINT []
 CMD []
 
 # Please keep each package list in alphabetical order
@@ -33,3 +32,29 @@ RUN set -x \
         git \
     	&& [ "$JAVA_HOME" = "$(docker-java-home)" ] \
         && chmod +x /usr/local/bin/wrapper.sh
+
+ENV HOME /home/jenkins
+RUN addgroup -S -g 1001 docker
+RUN adduser -S -u 1001 $HOME -G docker docker
+LABEL Description="This is a base image, which provides the Jenkins agent executable (slave.jar)" Vendor="Jenkins project" Version="3.16"
+
+ARG VERSION=3.16
+ARG AGENT_WORKDIR=/home/jenkins/agent
+
+RUN apk add --update --no-cache curl openssh-client openssl \
+  && curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${VERSION}/remoting-${VERSION}.jar \
+  && chmod 755 /usr/share/jenkins \
+  && chmod 644 /usr/share/jenkins/slave.jar \
+  && apk del curl
+
+USER docker
+ENV AGENT_WORKDIR=${AGENT_WORKDIR}
+RUN mkdir /home/jenkins/.jenkins && mkdir -p ${AGENT_WORKDIR}
+
+VOLUME /home/jenkins/.jenkins
+VOLUME ${AGENT_WORKDIR}
+WORKDIR /home/jenkins
+
+COPY jenkins-slave /usr/local/bin/jenkins-slave
+
+ENTRYPOINT ["jenkins-slave"]
