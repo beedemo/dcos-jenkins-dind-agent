@@ -47,7 +47,6 @@ RUN apk add --update --no-cache curl openssh-client openssl \
   && chmod 644 /usr/share/jenkins/slave.jar \
   && apk del curl
 
-USER jenkins
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/jenkins/.jenkins && mkdir -p ${AGENT_WORKDIR}
 
