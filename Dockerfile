@@ -1,4 +1,4 @@
-FROM docker:17.06.0-ce-dind
+FROM docker:17.12.1-ce-dind
 
 LABEL maintainer "Kurt Madel <kmadel@cloudbees.com>"
 
@@ -44,7 +44,7 @@ RUN apk add --update --no-cache curl bash git openssh-client openssl \
   && chmod 644 /usr/share/jenkins/slave.jar \
   && apk del curl
 
-#USER jenkins
+USER jenkins
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/jenkins/.jenkins && mkdir -p ${AGENT_WORKDIR}
 
