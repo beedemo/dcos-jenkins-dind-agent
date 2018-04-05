@@ -1,20 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-# no arguments passed
-# or first arg is `-f` or `--some-option`
-if [ "$#" -eq 0 -o "${1#-}" != "$1" ]; then
-	# add our default arguments
-	set -- dockerd \
+echo "==> Launching the Docker daemon..."
+dockerd \
 		--host=unix:///var/run/docker.sock \
-		--host=tcp://0.0.0.0:2375 \
-		"$@"
-fi
+		--host=tcp://0.0.0.0:2375
 
-if [ "$1" = 'dockerd' ]; then
-	# if we're running Docker, let's pipe through dind
-	# (and we'll run dind explicitly with "sh" since its shebang is /bin/bash)
-	set -- sh "$(which dind)" "$@"
-fi
+while(! docker info > /dev/null 2>&1); do
+    echo "==> Waiting for the Docker daemon to come online..."
+    sleep 1
+done
+echo "==> Docker Daemon is up and running!"
 
 /bin/sh -c "$@"
