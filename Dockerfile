@@ -1,4 +1,4 @@
-FROM docker:17.12.1-ce-dind
+FROM docker:18.03.0-ce-dind
 
 LABEL maintainer "Kurt Madel <kmadel@cloudbees.com>"
 
@@ -20,8 +20,8 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u131
-ENV JAVA_ALPINE_VERSION 8.131.11-r2
+ENV JAVA_VERSION 8u151
+ENV JAVA_ALPINE_VERSION 8.151.12-r0
 
 COPY wrapper.sh /usr/local/bin/
 
