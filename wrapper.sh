@@ -4,7 +4,7 @@ set -e
 echo "==> Launching the Docker daemon..."
 dockerd \
 		--host=unix:///var/run/docker.sock \
-		--host=tcp://0.0.0.0:2375
+		--host=tcp://0.0.0.0:2375 &
 
 while(! docker info > /dev/null 2>&1); do
     echo "==> Waiting for the Docker daemon to come online..."
